@@ -1,51 +1,4 @@
-
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Подтверждение возраста</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #111;
-      color: white;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    #age-check {
-      text-align: center;
-    }
-    button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #enter {
-      background-color: green;
-      color: white;
-    }
-    #leave {
-      background-color: red;
-      color: white;
-    }
-  </style>
-</head>
-<body>
-  <div id="age-check">
-    <h2>Вам есть 18 лет?</h2>
-    <button id="enter">Да</button>
-    <button id="leave">Нет</button>
-  </div>
-
-  <div id="content" style="display:none;">
-    <!DOCTYPE html>
 
 <html lang="ru">
 <head>
@@ -117,8 +70,49 @@
       background-color: #000;
     }
   </style>
+
+<style>
+  .blurred img {
+    filter: blur(8px);
+    transition: filter 0.5s ease;
+  }
+
+  .age-overlay {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+  }
+
+  .age-overlay button {
+    margin-top: 20px;
+    font-size: 1em;
+    padding: 10px 20px;
+    background-color: #444;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
 </head>
 <body>
+
+<div class="age-overlay" id="ageOverlay">
+  <p>Вам есть 18 лет?</p>
+  <button onclick="confirmAge()">Да</button>
+</div>
+
 <header>
 <h1>V.S.P.</h1>
 <p>По вопросам заказа и доступным вкусам, просьба обращаться к менеджеру тг: @vsp_boss</p>
@@ -237,19 +231,17 @@
 <footer>
 <p>Связь: <a href="https://t.me/VSP_Boss" style="color: #ccc;">Telegram менеджера</a></p>
 </footer>
-</body>
-</html>
 
-  </div>
+<script>
+  function confirmAge() {
+    document.getElementById('ageOverlay').remove();
+    document.querySelectorAll('.product').forEach(el => el.classList.remove('blurred'));
+  }
 
-  <script>
-    document.getElementById("enter").onclick = function() {
-      document.getElementById("age-check").style.display = "none";
-      document.getElementById("content").style.display = "block";
-    };
-    document.getElementById("leave").onclick = function() {
-      document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:40vh;'>Доступ запрещён</h2>";
-    };
-  </script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product').forEach(el => el.classList.add('blurred'));
+  });
+</script>
+
 </body>
 </html>
